@@ -1,0 +1,8 @@
+{
+  "docs-overview": {
+    "Overview": ["overview", "quickstart"]
+  },
+  "docs-other": {
+    "Tutorials": ["tutorials", "tutorial_detector", "tutorial_tracker"]
+  }
+}
