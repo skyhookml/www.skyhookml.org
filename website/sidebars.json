@@ -1,6 +1,7 @@
 {
   "docs-overview": {
-    "Overview": ["overview", "quickstart"]
+    "Overview": ["overview", "quickstart"],
+    "Documentation": ["python"]
   },
   "docs-other": {
     "Tutorials": ["tutorials", "tutorial_detector", "tutorial_tracker"]
