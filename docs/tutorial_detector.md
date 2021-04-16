@@ -13,7 +13,7 @@ First, we need to import images and bounding box labels for training the detecto
 2. Upload your own images and annotations.
 3. Upload your own unlabeled images or video, and label the data inside Skyhook.
 
-### Use an Example Dataset
+### Alternative A: Use an Example Dataset
 
 Using our example dataset is the quickest way to try out Skyhook. Start by heading to Datasets (in the sidebar):
 
@@ -31,7 +31,7 @@ After both imports are complete, you should see them in Datasets:
 
 ![](/img/tutorials/datasets_traffic_camera.png)
 
-### Upload your own Annotations
+### Alternative B: Upload your own Annotations
 
 If you already have your own annotations, it's easy to import them into Skyhook! Or at least easy if the labels are in the YOLO .txt format or the COCO JSON format.
 
@@ -45,7 +45,7 @@ And then select Object Detection Labels:
 
 Follow the instructions there to complete the import process. Your data will automatically be converted into Skyhook's internal format.
 
-### Annotate in SkyhookML
+### Alternative C: Annotate in SkyhookML
 
 So, you just have a bunch of unlabeled image or video files. That's OK -- Skyhook has a basic bounding box annotation tool built-in! (You can also try out a dedicated annotation tool like [cvat](https://github.com/openvinotoolkit/cvat), and then import the labels into Skyhook using the steps in the previous section.)
 
@@ -106,7 +106,7 @@ Now, select the train node from the table, and press Run. Hopefully everything w
 
 Now that we have trained an object detector, we can apply it on some new data!
 
-First, import the image or video files that you want to apply the detector on (go to Dashboard and press Import Data). If you're using our example dataset, then you can import video files from this URL: https://skyhookml.org/datasets/tokyo-videos.zip
+First, import the image or video files that you want to apply the detector on (go to Dashboard and press Import Data). If you're using our example dataset, then you can import video files from this URL (via Datasets and then Import SkyhookML Dataset): https://skyhookml.org/datasets/tokyo-videos.zip
 
 Then, go to Dashboard, press Apply a Model, and select Object Detection. Choose the same model architecture that was used for training, and make sure to select Custom Model for the model type to use the model that was just trained rather than a pre-trained one.
 
