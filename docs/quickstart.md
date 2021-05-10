@@ -6,7 +6,8 @@ sidebar_label: Quickstart
 
 ## Install SkyhookML
 
-The fastest way to get started is with the Docker all-in-one container. First, install nvidia-docker; on Ubuntu:
+The fastest way to get started is with the all-in-one Docker container.
+First, install [nvidia-docker](https://github.com/NVIDIA/nvidia-docker); on Ubuntu:
 
 	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 	sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
@@ -21,10 +22,11 @@ Then:
 	git clone https://github.com/skyhookml/skyhookml.git
 	cd skyhookml
 	mkdir -p data/items data/models
-	docker/allinone/build.sh
 	docker/allinone/run.sh
 
 Access your deployment at http://localhost:8080.
+
+Note: If you get an error like `nvidia-container-cli: initialization error`, make sure NVIDIA driver is installed (e.g., `sudo apt install nvidia-driver-460`; driver version must be >= 450).
 
 ## Import Data
 
