@@ -12,6 +12,7 @@ const siteConfig = {
   headerLinks: [
     {doc: 'overview', label: 'Overview'},
     {doc: 'tutorials', label: 'Tutorials'},
+    {href: "https://demo.skyhookml.org", label: "Demo", external: true},
     {href: "https://github.com/skyhookml/skyhookml", label: "GitHub", external: true},
   ],
 
