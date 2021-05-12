@@ -35,10 +35,10 @@ You can define other functions or import packages as well.
 
 Generally, you will use one of two decorators to implement the function:
 
-* `@lib.per_frame_decorate`: the function is called on each element of a
+* `@per_frame`: the function is called on each element of a
 sequence data type. For example, each image in a video, or a list of detections
 computed in each frame of video.
-* `@lib.all_decorate`: the function is called on the entire data. For example,
+* `@all_decorate`: the function is called on the entire data. For example,
 all object detections computed over an entire video, or tabular data.
 
 Below we show several example implementations and use cases.
@@ -49,22 +49,25 @@ We implement a simple function that emits a Table data containing the number of
 objects detected in an image. This function inputs a Detection dataset and
 yields a Table dataset.
 
-	@lib.all_decorate
+	from skyhook.op import all_decorate
+	@all_decorate
 	def f(detections):
 		'''
-		Inputs:
-		- detections: A dictionary with two keys, Detections and Metadata.
-		Detections is a list (or list of lists) of bounding boxes.
-		Example: {"Detections": [{"Left": 100, "Right": 150, "Top": 300, "Bottom": 350}], "Metadata": {"CanvasDims": [1280, 720]}}
-		Returns a tuple consisting of:
-		- Index 0 (table): A dictionary with two keys, Specs and Data.
-		Example: {"Specs": [{"Label": "Column 1", "Type": "string"}], "Data": [["Row 1"], ["Row 2"]]}
+		Inputs (each input is a dict with keys 'Data' and 'Metadata'):
+		- detections: Data: Object detections: a list (or list of lists) of bounding boxes.
+		Each detection has keys Left, Top, Right, Bottom, and optionally Category, TrackID, Score, Metadata.
+		Metadata: Optional keys CanvasDims and Categories.
+		Example: {"Data": [{"Left": 100, "Right": 150, "Top": 300, "Bottom": 350}], "Metadata": {"CanvasDims": [1280, 720]}}
+		Returns: a tuple where elements are either data only or a dict with keys 'Data' and 'Metadata'
+		- Index 0 (table): Data: A list of list of strings, where each sub-list corresponds to the values in one row.
+		Metadata: A list of each columns, where each column is specified by a dict with keys Label, Type.
+		Example: {"Metadata": {"Columns": [{"Label": "Column 1", "Type": "string"}]}, "Data": [["Row 1"], ["Row 2"]]}
 		'''
 		count = 0
-		if detections['Detections'] and detections['Detections'][0]:
-			count = len(detections['Detections'][0])
+		if detections['Data'] and detections['Data'][0]:
+			count = len(detections['Data'][0])
 		return {
-			'Specs': [{'Label': 'count', 'Type': 'int'}, {'Label': 'blah', 'Type': 'orange'}],
+			'Metadata': {'Columns': [{'Label': 'count', 'Type': 'int'}, {'Label': 'blah', 'Type': 'orange'}]},
 			'Data': [[str(count), "orange"]],
 		}
 
@@ -77,16 +80,19 @@ to split the integer labels into integers for the two different things.
 	@lib.per_frame_decorate
 	def f(data):
 		'''
-		Inputs:
-		- data: A dictionary with two keys, Ints and Metadata.
-		Example: {"Ints": 2, "Metadata": {"Categories": ["person", "car", "giraffe"]}}
-		Returns a tuple consisting of:
-		- Index 0 (left): A dictionary with two keys, Ints and Metadata.
-		Example: {"Ints": 2, "Metadata": {"Categories": ["person", "car", "giraffe"]}}
-		- Index 1 (right): A dictionary with two keys, Ints and Metadata.
-		Example: {"Ints": 2, "Metadata": {"Categories": ["person", "car", "giraffe"]}}
+		Inputs (each input is a dict with keys 'Data' and 'Metadata'):
+		- Data: A list of integers, or a single integer.
+		Metadata: Optional key Categories.
+		Example: {"Data": 2, "Metadata": {"Categories": ["person", "car", "giraffe"]}}
+		Returns: a tuple where elements are either data only or a dict with keys 'Data' and 'Metadata'
+		- Index 0 (left): Data: A list of integers, or a single integer.
+		Metadata: Optional key Categories.
+		Example: {"Data": 2, "Metadata": {"Categories": ["person", "car", "giraffe"]}}
+		- Index 1 (right): Data: A list of integers, or a single integer.
+		Metadata: Optional key Categories.
+		Example: {"Data": 2, "Metadata": {"Categories": ["person", "car", "giraffe"]}}
 		'''
-		x = data['Ints']
+		x = data['Data']
 		left = x//10
 		right = x%10
-		return {'Ints': left-1}, {'Ints': right-1}
+		return {'Data': left-1}, {'Data': right-1}
