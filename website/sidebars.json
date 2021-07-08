@@ -4,6 +4,9 @@
     "Documentation": ["python"]
   },
   "docs-other": {
-    "Tutorials": ["tutorials", "tutorial_detector", "tutorial_tracker"]
+    "Tutorials": [
+        "tutorials", "tutorial_detector", "tutorial_tracker", "tutorial_sample_video",
+        "tutorial_geospatial"
+    ]
   }
 }

@@ -31,7 +31,7 @@ Go to Dashboard, press Apply a Model, and select Object Detection. Choose the mo
 
 ![](/img/tutorials/tracker/apply_detector.png)
 
-For the traffic camera data, use these parameters in the inference node, where we input the video at 960x544 (this corresponds to training at 416x416 resolution on 800x800 crops from 1920x1080 original video frames):
+For the Tokyo dataset, if using our example detector, use these parameters in the inference node, where we input the video at 960x544:
 
 ![](/img/tutorials/tracker/detector_params.png)
 

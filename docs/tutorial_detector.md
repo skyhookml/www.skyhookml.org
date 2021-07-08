@@ -29,7 +29,7 @@ You'll need to repeat this for the dataset containing bounding box labels as wel
 
 After both imports are complete, you should see them in Datasets:
 
-![](/img/tutorials/datasets_traffic_camera.png)
+![](/img/tutorials/datasets_tokyo.png)
 
 ### Alternative B: Upload your own Annotations
 
@@ -51,7 +51,7 @@ So, you just have a bunch of unlabeled image or video files. That's OK -- Skyhoo
 
 First, import your data: go to Dashboard, press Import Data, and select Unlabeled Images or Unlabeled Video.
 
-If you imported video, you'll need to sample images from the video before we can annotate it. We'll add a guide for that later... for now, here's a rough guide: go to Pipeline, add a Render Video node (under Image and Video), add the unlabeled video dataset as a parent of that node, and edit the node to set the number of images you want to sample; then, select the node and press Run.
+If you imported video, you'll need to sample images from the video before we can annotate it. See the [Sample Images from Video](tutorial_sample_video.md) guide.
 
 Once you have a dataset of images in Skyhook, go back to Dashboard, and press Annotate. You should then be prompted to select an annotation tool:
 
@@ -96,7 +96,7 @@ After pressing Add Node, a training node will be added to the execution pipeline
 
 ![](/img/tutorials/pytorch_train_training.png)
 
-From here, you can select a wide variety of options, like data augmentation steps to employ, the learning rate, etc. For now, just select an input Width/Height under Basic. If you're not sure what resolution to use, start with 416x416. Then, press Save.
+From here, you can select a wide variety of options, like data augmentation steps to employ, the learning rate, etc. For now, just select an input Width/Height under Basic. If you're not sure what resolution to use, start with the default of scaling the larger dimension to 640 pixels. Then, press Save.
 
 Now, select the train node from the table, and press Run. Hopefully everything works, and you should be able to monitor the training progress and visualize the training and validation loss:
 
@@ -112,7 +112,7 @@ Then, go to Dashboard, press Apply a Model, and select Object Detection. Choose 
 
 ![](/img/tutorials/quickstart_apply_detection.png)
 
-Configure the node with the same Width and Height used for training, and press Save. Now, select the node and press Run.
+Configure the node with the same resizing options used for training, and press Save. Now, select the node and press Run.
 
 The detection outputs can now be found in Datasets in the Apply My Model[detections] dataset. To visualize them, go to Pipeline, press Add Node, and add a new Render Images/Video node under Images and Video:
 
